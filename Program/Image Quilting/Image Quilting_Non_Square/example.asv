@@ -1,0 +1,34 @@
+texture = imread('motif8.jpg');
+figure;
+
+imshow(texture);
+
+
+
+outsize = size(texture)*0.5;
+tilesize = 180;
+overlapsize = 5;
+isdebug = 1;
+i = 1; 
+while i <= 10 
+    overlapsize = overlapsize + (i*2);
+    j=1;
+    tilesize = tilesize + i;
+    while j <= 10
+        figure;
+        t2 = synthesize(texture,   outsize , tilesize, overlapsize, isdebug);
+        J = imrotate(t2,35,'bilinear');
+        saveas(t2, 'Filename.bmp', 'bmp')
+        imwrite(t2,'overlap= ', strcat(int2str(overlapsize),strcat(int2str(i),int2str(j),'(1).png'));
+        imgMirrorRU = flipdim(t2,2); 
+        imwrite(imgMirrorRU,strcat(int2str(i),int2str(j),'(2).png'));
+        imgMirrorLB = flipdim(t2,1);
+        imwrite(imgMirrorLB,strcat(int2str(i),int2str(j),'(3).png'));
+        imgMirrorRB = flipdim(imgMirrorRU,1);
+        imwrite(imgMirrorRB,strcat(int2str(i),int2str(j),'(4).png'));
+        j = j + 1;
+    end 
+    i = i + 1;
+end 
+
+
